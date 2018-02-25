@@ -39,22 +39,8 @@
 		  
                     <div class='container-fluid'>
                     <br><br>
-                        <!-- {% block content %} -->
-                        <!-- {% endblock %}	 -->
-                        {% for key, value in exchanger_content.items %}
-                            <p class="text-danger"><h5>{{key}}</h5> {{value}}</p>
-                        {% endfor %}
-                
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown button
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </div>
+                        {% block content %}
+                        {% endblock %}	
                     </div>
                 </div>
             </div>

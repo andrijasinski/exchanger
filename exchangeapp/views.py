@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .exchanger import Exchanger
-from .forms import UserForm, NameForm
+from .forms import ExchangeForm
 from django.http import HttpResponseRedirect
 
 
@@ -11,28 +11,23 @@ except AttributeError:
     exch.get_live_currency()
 
 def index(request):
-    params = {
-        'usd_eur': exch.usd_eur, 
-        'usd_kzt': exch.usd_kzt, 
-        'usd_bob': exch.usd_bob
-    }
-    return render(request, 'exchangeapp/header.html', {'exchanger_content': params})
+    return HttpResponseRedirect('/exchange/?from=eur&to=kzt&amount=0')
 
-def get_name(request):
-    # if this is a POST request we need to process the form data
+def form(request):
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST)
-        # check whether it's valid:
-        print("=============", request.method)
+        form = ExchangeForm(request.POST)
         if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/')
+            from_curr = form.cleaned_data["from_currency"]
+            to_curr = form.cleaned_data["to_currency"]
+            amt = form.cleaned_data["amount"]
 
-    # if a GET (or any other method) we'll create a blank form
+            return HttpResponseRedirect('/exchange/?from={}&to={}&amount={}'.format(from_curr, to_curr, amt))
+
     else:
-        form = NameForm()
+        form = ExchangeForm(initial={
+            'from_currency': request.GET.get('from', 'eur'),
+            'to_currency': request.GET.get('to', 'kzt'),
+            'amount': request.GET.get('amount', 0)
+            })
 
     return render(request, 'exchangeapp/name.html', {'form': form})
