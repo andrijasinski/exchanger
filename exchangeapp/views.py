@@ -37,4 +37,4 @@ def form(request):
     return render(request, 'exchangeapp/exchanger_form.html', {'form': form, 'exchange_result': result})
 
 def history(request):
-    pass
+    return render(request, 'exchangeapp/history.html')
