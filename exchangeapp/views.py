@@ -11,7 +11,7 @@ except AttributeError:
     exch.get_live_currency()
 
 def index(request):
-    return HttpResponseRedirect('/exchange/?from=eur&to=kzt&amount=0')
+    return HttpResponseRedirect('/exchange/?from=eur&to=kzt&amount=1')
 
 def form(request):
     result = 0
@@ -26,7 +26,7 @@ def form(request):
     else:
         from_curr = request.GET.get('from', 'eur')
         to_curr = request.GET.get('to', 'kzt')
-        amt = request.GET.get('amount', 0)
+        amt = request.GET.get('amount', 1)
         form = ExchangeForm(initial={
             'from_currency': from_curr,
             'to_currency': to_curr,
@@ -34,4 +34,7 @@ def form(request):
             })
         result = exch.exchange(from_curr, to_curr, float(amt))
 
-    return render(request, 'exchangeapp/name.html', {'form': form, 'exchange_result': result})
+    return render(request, 'exchangeapp/exchanger_form.html', {'form': form, 'exchange_result': result})
+
+def history(request):
+    pass
