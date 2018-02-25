@@ -4,6 +4,6 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     # url(r'^get/$', views.get_name, name='get_name')
-    url(r'exchange/', views.form, name="form"),
+    url(r'exchange/', views.exchanger_form, name="exchanger_form"),
     url(r'history/', views.history, name="history")
 ]

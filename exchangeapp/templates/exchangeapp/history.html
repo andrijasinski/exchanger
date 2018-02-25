@@ -11,7 +11,33 @@
 </form>
 
 <div>
-    <h5>Result = {{exchange_result}}</h5>
+    <span class="badge badge-pill badge-info">Current rate: {{current}}</span>
+</div>
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Rate</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for date, rate in changes.items %}
+                {% if rate < current %}
+                    <tr class="table-danger">
+                {% elif rate > current %}
+                    <tr class="table-success">
+                {% else %}
+                    <tr class="table-active">
+                {% endif %}
+                <td>{{date}}</td>
+                <td>{{rate}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
 </div>
 
 {% endblock %}
