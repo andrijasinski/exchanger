@@ -11,6 +11,13 @@ class Exchanger(object):
         self.usd_kzt = float(self.currency_live["quotes"]["USDKZT"])
         self.usd_bob = float(self.currency_live["quotes"]["USDBOB"])
 
+    def exchange(self, from_curr, to_curr, amount):
+        to_usd = float(self.currency_live["quotes"]["USD"+from_curr.upper()])
+        from_usd = float(self.currency_live["quotes"]["USD"+
+to_curr.upper()])
+        result = (amount/to_usd)*from_usd
+        return round(result, 2)
+
     @staticmethod
     def get_dict_from_json(url):
         # file = urllib.request.urlopen(url)
