@@ -3,20 +3,22 @@
 {% block content %}
 
 {% load staticfiles %}
+<div class="jumbotron">
 
 <form method="post">
     {% csrf_token %}
     {{ form }}
-    <input type="submit" value="Exchange" />
+    <input type="submit" value="Exchange" class="btn btn-info"/>
 </form>
 
 <div>
-    <span class="badge badge-pill badge-info">Current rate: {{current}}</span>
+    <h5><span class="badge badge-pill badge-info">Current rate: {{current}}</span></h5>
 </div>
-
+</div>
 <div class="container">
     <table class="table">
         <thead>
+
             <tr>
                 <th>Date</th>
                 <th>Rate</th>

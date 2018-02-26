@@ -6,12 +6,13 @@ import arrow
 
 
 exch = Exchanger()
-try: 
-    exch.currency_live
-except AttributeError:
-    exch.get_live_currency()
 
 def index(request):
+    try: 
+        exch.currency_live
+    except AttributeError:
+        exch.get_live_currency()
+        
     return HttpResponseRedirect('/exchange/?from=eur&to=kzt&amount=1')
 
 def exchanger_form(request):
@@ -34,13 +35,14 @@ def exchanger_form(request):
             })
         result = exch.exchange(from_curr, to_curr, float(amt))
 
-    return render(request, 'exchangeapp/exchanger_form.html', {'form': form, 'exchange_result': result})
+    return render(request, 'exchangeapp/exchanger_form.html', {'form': form, 'exchange_result': round(result, 2)})
 
 def history(request):
     try:
         exch.two_week_history
     except AttributeError:
         exch.get_two_week_history()
+
     if request.method == 'POST':
         form = HistoryForm(request.POST)
         if form.is_valid():
@@ -57,12 +59,12 @@ def history(request):
             })
         changes, current = cross_rate_changes(from_curr, to_curr)
 
-    return render(request, 'exchangeapp/history.html', {'form': form, 'changes': changes, 'current': current})
+    return render(request, 'exchangeapp/history.html', {'form': form, 'changes': changes, 'current': round(current, 5)})
 
 def cross_rate_changes(from_curr, to_curr):
     changes = {}
     for i in range(1, 15):
         arrow_obj = arrow.now().shift(days=-i)
         rate = exch.exchange(from_curr, to_curr, 1, arrow_obj.format('MMM DD, YYYY'))
-        changes[arrow_obj.format('MMM DD, YYYY')] = rate
+        changes[arrow_obj.format('MMM DD, YYYY')] = round(rate, 5)
     return [changes, exch.exchange(from_curr, to_curr, 1)]

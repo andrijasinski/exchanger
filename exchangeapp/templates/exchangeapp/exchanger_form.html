@@ -4,14 +4,17 @@
 
 {% load staticfiles %}
 
+<div class="jumbotron">
+
 <form method="post">
     {% csrf_token %}
     {{ form }}
-    <input type="submit" value="Exchange" />
+    <input type="submit" value="Exchange" class="btn btn-info" />
 </form>
 
 <div>
-    <h5>Result = {{exchange_result}}</h5>
+    <h5><span class="badge badge-pill badge-info">Result: {{exchange_result}}</span></h5>
+</div>
 </div>
 
 {% endblock %}

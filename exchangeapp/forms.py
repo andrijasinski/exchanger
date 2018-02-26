@@ -10,8 +10,7 @@ class ExchangeForm(forms.Form):
 
     from_currency = forms.CharField(label='Exchange from', widget=forms.Select(choices=CURRENCY_CHOICES))
     to_currency = forms.CharField(label='Exchange to', widget=forms.Select(choices=CURRENCY_CHOICES))
-    amount = forms.FloatField(label="Amount")
-
+    amount = forms.FloatField(label="Amount", min_value=0)
 
 class HistoryForm(forms.Form):
     from_currency = forms.CharField(label='Exchange from', widget=forms.Select(choices=CURRENCY_CHOICES))

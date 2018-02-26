@@ -14,12 +14,12 @@ class Exchanger(object):
             to_usd = float(self.currency_live["quotes"]["USD"+from_curr.upper()])
             from_usd = float(self.currency_live["quotes"]["USD"+to_curr.upper()])
             result = (amount/to_usd)*from_usd
-            return round(result, 2)
+            return result
 
         to_usd = float(self.two_week_history[date]["quotes"]["USD"+from_curr.upper()])
         from_usd = float(self.two_week_history[date]["quotes"]["USD"+to_curr.upper()])
         result = (amount/to_usd)*from_usd
-        return round(result, 2)
+        return result
 
     def get_two_week_history(self):
         print("Getting two week history")
@@ -35,7 +35,7 @@ class Exchanger(object):
     def get_dict_from_json(url, mock=False):
         file = urllib.request.urlopen(url)
         data = json.loads(file.read().decode())
-        if mock:
+        if mock: # Mocking purposes to minimaze API requests.
             with open('mock.json', 'r') as mock_data: 
                 print("_MOCKING_")
                 data = json.loads(mock_data.read())

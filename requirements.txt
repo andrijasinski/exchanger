@@ -1,4 +1,2 @@
 # arrow
 arrow
-# django-crispy-forms
-django-crispy-forms
