@@ -7,12 +7,12 @@ import arrow
 
 exch = Exchanger()
 
-def index(request):
-    try: 
-        exch.currency_live
-    except AttributeError:
-        exch.get_live_currency()
+try: 
+    exch.currency_live
+except AttributeError:
+    exch.get_live_currency()
 
+def index(request):
     return HttpResponseRedirect('/exchange/?from=eur&to=kzt&amount=1')
 
 def exchanger_form(request):
@@ -39,11 +39,12 @@ def exchanger_form(request):
             'to_currency': to_curr,
             'amount': amt
             })
+        
         result = exch.exchange(from_curr, to_curr, float(amt))
 
     return render(request, 'exchangeapp/exchanger_form.html', {
         'form': form, 
-        'exchange_result': round(result, 2), 
+        'exchange_result': round(result, 3), 
         'from': from_curr.upper(),
         'to': to_curr.upper(),
         'amt': amt
