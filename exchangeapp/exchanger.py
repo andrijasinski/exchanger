@@ -9,13 +9,13 @@ class Exchanger(object):
         print("Fetching currency data")
         self.currency_live = Exchanger.get_dict_from_json("http://apilayer.net/api/live?access_key=" + Exchanger.API_KEY, True)
 
-    def exchange(self, from_curr, to_curr, amount, date=None):
-        if not date:
-            to_usd = float(self.currency_live["quotes"]["USD"+from_curr.upper()])
-            from_usd = float(self.currency_live["quotes"]["USD"+to_curr.upper()])
-            result = (amount/to_usd)*from_usd
-            return result
-
+    def exchange(self, from_curr, to_curr, amount):
+        to_usd = float(self.currency_live["quotes"]["USD"+from_curr.upper()])
+        from_usd = float(self.currency_live["quotes"]["USD"+to_curr.upper()])
+        result = (amount/to_usd)*from_usd
+        return result
+    
+    def exchange_past(self, from_curr, to_curr, amount, date):
         to_usd = float(self.two_week_history[date]["quotes"]["USD"+from_curr.upper()])
         from_usd = float(self.two_week_history[date]["quotes"]["USD"+to_curr.upper()])
         result = (amount/to_usd)*from_usd
@@ -33,11 +33,11 @@ class Exchanger(object):
 
     @staticmethod
     def get_dict_from_json(url, mock=False):
-        file = urllib.request.urlopen(url)
-        data = json.loads(file.read().decode())
         if mock: # Mocking purposes to minimaze API requests.
             with open('mock.json', 'r') as mock_data: 
                 print("_MOCKING_")
                 data = json.loads(mock_data.read())
                 return data
+        file = urllib.request.urlopen(url)
+        data = json.loads(file.read().decode())
         return data

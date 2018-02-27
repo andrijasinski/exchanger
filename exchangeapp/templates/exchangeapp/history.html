@@ -12,11 +12,11 @@
 </form>
 
 <div>
-    <h5><span class="badge badge-pill badge-info">Current rate: {{current}}</span></h5>
+    <h4><span class="badge badge-pill badge-info">Current rate: {{current}}</span></h4>
 </div>
 </div>
 <div class="container">
-    <table class="table">
+    <table class="table table-hover">
         <thead>
 
             <tr>
@@ -31,7 +31,7 @@
                 {% elif rate > current %}
                     <tr class="table-success">
                 {% else %}
-                    <tr class="table-active">
+                    <tr class="table-secondary">
                 {% endif %}
                 <td>{{date}}</td>
                 <td>{{rate}}</td>
