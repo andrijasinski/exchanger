@@ -6,6 +6,7 @@ from .exchanger import Exchanger
 class ExchangeTest(TestCase):
 
     exch = Exchanger()
+    exch.get_live_currency()
 
     def test_homepage_url_exists_and_redirects(self):
         resp = self.client.get('/')
@@ -18,11 +19,13 @@ class ExchangeTest(TestCase):
         self.assertTemplateUsed(resp, 'exchangeapp/exchanger_form.html')
     
     def test_exchange_url_with_right_params(self):
-        ExchangeTest.exch.get_live_currency()
         resp = self.client.get('/exchange/?from=kzt&to=bob&amount=20')
         self.assertEqual(resp.status_code, 200)
-        res = self.__class__.exch.exchange('kzt', 'bob', 20)
+        res = ExchangeTest.exch.exchange('kzt', 'bob', 20)
         self.assertEqual(resp.context['exchange_result'], round(res, 3))
 
     def test_exchange_url_with_wrong_currency(self):
-        pass
+        resp = self.client.get('/exchange/?from=kzt&to=bob&amount=20')
+        self.assertEqual(resp.status_code, 200)
+        res = ExchangeTest.exch.exchange('kzt', 'bob', 20)
+        self.assertEqual(resp.context['exchange_result'], round(res, 3))
