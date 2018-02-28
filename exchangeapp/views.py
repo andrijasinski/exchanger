@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from .exchanger import Exchanger
 from .forms import ExchangeForm, HistoryForm
+from .currencies import Currencies
 from django.http import HttpResponseRedirect
 import arrow
 
 
 exch = Exchanger()
+currencies = Currencies()
 
 try: 
     exch.currency_live
@@ -79,9 +81,9 @@ def cross_rate_changes(from_curr, to_curr):
 
 def validate_url_params(request):
     from_curr = request.GET.get('from', 'eur')
-    from_curr = from_curr if from_curr.lower() in ['eur', 'kzt', 'bob'] else 'eur'
+    from_curr = from_curr if from_curr.lower() in currencies.as_list() else 'eur'
     to_curr = request.GET.get('to', 'kzt')
-    to_curr = to_curr if to_curr.lower() in ['eur', 'kzt', 'bob'] else 'kzt'
+    to_curr = to_curr if to_curr.lower() in currencies.as_list() else 'kzt'
     amt = request.GET.get('amount', 1)
     try:
         amt = abs(float(amt))
