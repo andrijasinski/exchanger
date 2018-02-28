@@ -25,15 +25,7 @@ def exchanger_form(request):
             return HttpResponseRedirect('/exchange/?from={}&to={}&amount={}'.format(from_curr, to_curr, amt))
 
     else:
-        from_curr = request.GET.get('from', 'eur')
-        from_curr = from_curr if from_curr.lower() in ['eur', 'kzt', 'bob'] else 'eur'
-        to_curr = request.GET.get('to', 'kzt')
-        to_curr = to_curr if to_curr.lower() in ['eur', 'kzt', 'bob'] else 'kzt'
-        amt = request.GET.get('amount', 1)
-        try:
-            amt = abs(float(amt))
-        except ValueError:
-            amt = 1
+        from_curr, to_curr, amt = validate_url_params(request)
         form = ExchangeForm(initial={
             'from_currency': from_curr,
             'to_currency': to_curr,
@@ -64,15 +56,18 @@ def history(request):
             return HttpResponseRedirect('/history/?from={}&to={}'.format(from_curr, to_curr))
 
     else:
-        from_curr = request.GET.get('from', 'eur')
-        to_curr = request.GET.get('to', 'kzt')
+        from_curr, to_curr, _ = validate_url_params(request)
         form = HistoryForm(initial={
             'from_currency': from_curr,
             'to_currency': to_curr
             })
         changes, current = cross_rate_changes(from_curr, to_curr)
 
-    return render(request, 'exchangeapp/history.html', {'form': form, 'changes': changes, 'current': round(current, 5)})
+    return render(request, 'exchangeapp/history.html', {
+        'form': form, 
+        'changes': changes, 
+        'current': round(current, 5)
+        })
 
 def cross_rate_changes(from_curr, to_curr):
     changes = {}
@@ -81,3 +76,15 @@ def cross_rate_changes(from_curr, to_curr):
         rate = exch.exchange_past(from_curr, to_curr, 1, arrow_obj.format('MMM DD, YYYY'))
         changes[arrow_obj.format('MMM DD, YYYY')] = round(rate, 5)
     return [changes, exch.exchange(from_curr, to_curr, 1)]
+
+def validate_url_params(request):
+    from_curr = request.GET.get('from', 'eur')
+    from_curr = from_curr if from_curr.lower() in ['eur', 'kzt', 'bob'] else 'eur'
+    to_curr = request.GET.get('to', 'kzt')
+    to_curr = to_curr if to_curr.lower() in ['eur', 'kzt', 'bob'] else 'kzt'
+    amt = request.GET.get('amount', 1)
+    try:
+        amt = abs(float(amt))
+    except ValueError:
+        amt = 1
+    return [from_curr, to_curr, amt]
