@@ -1,12 +1,6 @@
 from django import forms
 from .currencies import Currencies
 
-CURRENCY_CHOICES = [
-    ('eur', 'EUR'),
-    ('kzt', 'KZT'),
-    ('bob', 'BOB')
-]
-
 currencies = Currencies()
 
 class ExchangeForm(forms.Form):
