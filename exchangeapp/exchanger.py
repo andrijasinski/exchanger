@@ -7,7 +7,7 @@ class Exchanger(object):
 
     def get_live_currency(self):
         print("Fetching currency data")
-        self.currency_live = Exchanger.get_dict_from_json("http://apilayer.net/api/live?access_key=" + Exchanger.API_KEY, True)
+        self.currency_live = Exchanger.get_dict_from_json("http://apilayer.net/api/live?access_key=" + Exchanger.API_KEY)
 
     def exchange(self, from_curr, to_curr, amount):
         to_usd = float(self.currency_live["quotes"]["USD"+from_curr.upper()])
@@ -27,17 +27,12 @@ class Exchanger(object):
         for i in range(1, 15):
             arrow_obj = arrow.now().shift(days=-i)
             currency_stats = Exchanger.get_dict_from_json(
-                "http://apilayer.net/api/historical?access_key=" + Exchanger.API_KEY + "&date=" + arrow_obj.format('YYYY-MM-DD'), False)
+                "http://apilayer.net/api/historical?access_key=" + Exchanger.API_KEY + "&date=" + arrow_obj.format('YYYY-MM-DD'))
             two_week_history[arrow_obj.format('MMM DD, YYYY')] = currency_stats
         self.two_week_history = two_week_history
 
     @staticmethod
-    def get_dict_from_json(url, mock=False):
-        if mock: # Mocking purposes to minimaze API requests.
-            with open('mock.json', 'r') as mock_data: 
-                print("_MOCKING_")
-                data = json.loads(mock_data.read())
-                return data
+    def get_dict_from_json(url):
         file = urllib.request.urlopen(url)
         data = json.loads(file.read().decode())
         return data
