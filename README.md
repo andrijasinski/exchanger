@@ -33,12 +33,12 @@ $ python3 manage.py runserver
 ```
 
 ### Run test
-To run server please enter root directory and type in your terminal:
+To run test please enter root directory and type in your terminal:
 ```
 $ python3 manage.py test
 ```
 
-### How to use
+## How to use
 
 To test core functionality, please visit `127.0.0.1:8000/` for currency exchanger and `127.0.0.1:8000/history/` to check out cross rate changes. 
 
