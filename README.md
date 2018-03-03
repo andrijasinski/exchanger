@@ -17,13 +17,9 @@ PS. Since this app is integrated with currencylayer.com service, stable internet
 
 ### Before
 
-"EXCHANGER" uses [arrow](http://arrow.readthedocs.io/en/latest/) library, so before running server or tests please run in your terminal:
+Before running server or tests please run in your terminal:
 ```
 $ pip3 install -r requirements.txt #install from requirements file 
-```
-Or
-```
-$ pip3 install arrow
 ```
 
 ### Run server
