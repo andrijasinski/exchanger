@@ -1,10 +1,14 @@
+#virtualenv
+
+exchanger_env/*
+
 
 # Created by https://www.gitignore.io/api/django,python,visualstudiocode
 
 ### Django ###
 *.log
 *.pot
-*.pyc
+*.pyc:
 __pycache__/
 local_settings.py
 db.sqlite3
