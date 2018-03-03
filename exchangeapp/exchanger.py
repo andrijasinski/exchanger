@@ -1,9 +1,10 @@
 import json
 import urllib.request
 import arrow
+import os
 
 class Exchanger(object):
-    API_KEY = "5bbcf670863e47e0ad12322e96022cd1"
+    API_KEY = os.environ.get('CURRENCY_LAYER_API_KEY')
 
     def get_live_currency(self):
         print("Fetching currency data")
