@@ -1,8 +1,12 @@
+[![Build Status](https://travis-ci.org/andrijasinski/exchanger.svg?branch=master)](https://travis-ci.org/andrijasinski/exchanger)
+
 # EXCHANGER
 
 ## Description
 
-The "EXCHANGER" app provides a currency exchange functionality between EUR, KZT, BOB currencies. App also allows the user to see cross rate changes between those currencies for the past two weeks (14 days).
+The "EXCHANGER" app provides a currency exchange functionality between EUR, KZT, BOB and other currencies. App also allows the user to see cross rate changes between those currencies for the past two weeks (14 days).
+
+You can try application on 
 
 ## Requirements
 
@@ -13,7 +17,7 @@ The "EXCHANGER" app provides a currency exchange functionality between EUR, KZT,
 
 PS. Since this app is integrated with currencylayer.com service, stable internet connection is required.
 
-## Installation
+## Installation from source code
 
 ### Before
 
@@ -21,6 +25,8 @@ Before running server or tests please run in your terminal:
 ```
 $ pip3 install -r requirements.txt #install from requirements file 
 ```
+
+Make sure you have set up enviroment variables `CURRENCY_LAYER_API_KEY` with your API key and `DJANGO_EXCHANGER_DEBUG` to `True` or `False`. 
 
 ### Run server
 To run server please enter root directory and type in your terminal:
