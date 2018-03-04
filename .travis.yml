@@ -10,5 +10,5 @@ script:
 deploy:
   provider: heroku
   api_key:
-    secure: HEROKU_KEY
+    secure: NrE5ce582sHAvGi68rlLauYwVvOt0YoLqrJgSRd3xeMkqfHNNAmPBUXklXSgg807/+mjKRuuFNqUK27W+5mR6bt/2RY8A6RWytmWMsSIV7bvBZXtqcLxsr2EdBu45VQVPtYM22CY9ScjQ1ctURmqC7nQ/fJ60J30uAbdA603xUSq4TdimwisMDhQzdKYKxD+zK8TLDz0ISef/oEIhPfRiv3+JBMa9VN1rOmuh3QQScKZWPZQiAB37MxU7FABuDoU5A3nqfeVgnsRV6fTarrVWRfdO/cxsukSR5vzdFnPy8l7UaUl4qY97nM9gsP6v/k9SBpVRUERzkcD5fkUIp93g/bJDeY2BWcfT/1LDfwwj6CNfer/btx9/eNU1+tnO28ww3RYvCBAbJZpEzm9izOaZIreYCkQ/dk8qarRTiyEy00o9X+21zJ4vrkPSSSp/eUVhQVGUJrdhh0UDjQO7DiwiSSIHp6Y2oRzoW6xiWiXHXA1vIEnAst1GP71+lV+E/hCH4pT0DfKiFveVhnahUPkXHWs7GiDMrwpw96CQ46pNRIBZkGYcyRDdpfTI+MRf/jYFJ/jQOcv7nKiM4mSnmpIE30Eoet+7zGoql2jZzXW3EkANEKXjsl6P/M/H6nsEA/xMHYf8rziwUi2k8PY4lYC1pAS4bsCQo/Skd+++XocW6Q=
   app: exchanger-app
